@@ -1,10 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Troop : MonoBehaviour
 {
+    public enum ControlState
+    {
+        NONE,
+        SELECTED
+    };
+    public ControlState controlState;
+
+    public Image selectionMarker;
+
     public NavMeshAgent navAgent;
     public Animator animator;
 
@@ -19,6 +29,22 @@ public class Troop : MonoBehaviour
         {
             animator = GetComponent<Animator>();
         }
+    }
+
+    void Start()
+    {
+        controlState = ControlState.NONE;
+        HideSelected();
+    }
+
+    public void ShowSelected()
+    {
+        selectionMarker.enabled = true;
+    }
+
+    public void HideSelected()
+    {
+        selectionMarker.enabled = false;
     }
 
     public IEnumerator CheckIfRouteCompleted()

@@ -2400,8 +2400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e537e5830919a514ead3b565c013c975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlState: 0
-  selectionMarker: {fileID: 114427985742742914}
 --- !u!114 &114427985742742914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2477,6 +2475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65e9dddc42c83e46b3ee8a87e65ea70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlState: 0
+  selectionMarker: {fileID: 114427985742742914}
   navAgent: {fileID: 195121443436344564, guid: 27c7614277f42904daa64f1e27796374, type: 2}
   animator: {fileID: 95357299239941922, guid: 27c7614277f42904daa64f1e27796374, type: 2}
 --- !u!136 &136259366753040924

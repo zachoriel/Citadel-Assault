@@ -11,16 +11,6 @@ public class SelectionManager : MonoBehaviour
     public LayerMask troopLayer;
     public LayerMask structureLayer;
 
-    // For activating structure menus
-    [Header("Building Panels")]
-    public GameObject barracksPanel;
-    public GameObject armoryPanel;
-    public GameObject forgePanel;
-    public GameObject arcanaeumPanel;
-    public GameObject thronePanel;
-    public GameObject towerPanel;
-    List<GameObject> buildingPanels = new List<GameObject>();
-
     // The selection square drawn when you drag the mouse to select units
     [Header("Selection Graphic")]
     public RectTransform selectionSquareTrans;
@@ -66,8 +56,6 @@ public class SelectionManager : MonoBehaviour
 
     void Start()
     {
-        buildingPanels.AddMany(barracksPanel, armoryPanel, forgePanel, arcanaeumPanel, thronePanel, towerPanel);
-
         // Deactivate the square selection image
         ConstructionManager.instance.CloseConstructionPanel();
         selectionSquareTrans.gameObject.SetActive(false);
@@ -122,24 +110,12 @@ public class SelectionManager : MonoBehaviour
                 // Clear the list with selected unit
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
-                    Peasant peasant = selectedUnits[i].GetComponent<Peasant>();
-                    Footman footman = selectedUnits[i].GetComponent<Footman>();
-                    Bowman bowman = selectedUnits[i].GetComponent<Bowman>();
+                    Troop troop = selectedUnits[i].GetComponent<Troop>();
 
-                    if (peasant != null)
+                    if (troop != null)
                     {
-                        peasant.controlState = Peasant.ControlState.NONE;
-                        peasant.HideSelected();
-                    }
-                    if (footman != null)
-                    {
-                        footman.controlState = Footman.ControlState.NONE;
-                        footman.HideSelected();
-                    }
-                    if (bowman != null)
-                    {
-                        bowman.controlState = Bowman.ControlState.NONE;
-                        bowman.HideSelected();
+                        troop.controlState = Troop.ControlState.NONE;
+                        troop.HideSelected();
                     }
                 }
                 selectedUnits.Clear();
@@ -154,45 +130,22 @@ public class SelectionManager : MonoBehaviour
                     {
                         selectedUnits.Add(currentUnit);
                         formationLeader = Random.Range(0, selectedUnits.Count);
-                        Peasant peasant = currentUnit.GetComponent<Peasant>();
-                        Footman footman = currentUnit.GetComponent<Footman>();
-                        Bowman bowman = currentUnit.GetComponent<Bowman>();
-                        if (peasant != null)
+                        Troop troop = currentUnit.GetComponent<Troop>();
+
+                        if (troop != null)
                         {
-                            peasant.controlState = Peasant.ControlState.SELECTED;
-                            peasant.ShowSelected();
-                        }
-                        if (footman != null)
-                        {
-                            footman.controlState = Footman.ControlState.SELECTED;
-                            footman.ShowSelected();
-                        }
-                        if (bowman != null)
-                        {
-                            bowman.controlState = Bowman.ControlState.SELECTED;
-                            bowman.ShowSelected();
+                            troop.controlState = Troop.ControlState.SELECTED;
+                            troop.ShowSelected();
                         }
                     }
                     // Otherwise deselect the unit if it's not in the square
                     else
                     {
-                        Peasant peasant = currentUnit.GetComponent<Peasant>();
-                        Footman footman = currentUnit.GetComponent<Footman>();
-                        Bowman bowman = currentUnit.GetComponent<Bowman>();
-                        if (peasant != null)
+                        Troop troop = currentUnit.GetComponent<Troop>();
+                        if (troop != null)
                         {
-                            peasant.controlState = Peasant.ControlState.NONE;
-                            peasant.HideSelected();
-                        }
-                        if (footman != null)
-                        {
-                            footman.controlState = Footman.ControlState.NONE;
-                            footman.HideSelected();
-                        }
-                        if (bowman != null)
-                        {
-                            bowman.controlState = Bowman.ControlState.NONE;
-                            bowman.HideSelected();
+                            troop.controlState = Troop.ControlState.NONE;
+                            troop.HideSelected();
                         }
                     }
                 }
@@ -213,24 +166,12 @@ public class SelectionManager : MonoBehaviour
             // Deselect all units
             for (int i = 0; i < selectedUnits.Count; i++)
             {
-                Peasant peasant = selectedUnits[i].GetComponent<Peasant>();
-                Footman footman = selectedUnits[i].GetComponent<Footman>();
-                Bowman bowman = selectedUnits[i].GetComponent<Bowman>();
+                Troop troop = selectedUnits[i].GetComponent<Troop>();
 
-                if (peasant != null)
+                if (troop != null)
                 {
-                    peasant.controlState = Peasant.ControlState.NONE;
-                    peasant.HideSelected();
-                }
-                if (footman != null)
-                {
-                    footman.controlState = Footman.ControlState.NONE;
-                    footman.HideSelected();
-                }
-                if (bowman != null)
-                {
-                    bowman.controlState = Bowman.ControlState.NONE;
-                    bowman.HideSelected();
+                    troop.controlState = Troop.ControlState.NONE;
+                    troop.HideSelected();
                 }
             }
 
@@ -243,48 +184,20 @@ public class SelectionManager : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 2000f))
             {
                 PlaceBuilding building = hit.transform.gameObject.GetComponent<PlaceBuilding>();
-                Peasant peasant = hit.transform.gameObject.GetComponent<Peasant>();
-                Footman footman = hit.transform.gameObject.GetComponent<Footman>();
-                Bowman bowman = hit.transform.gameObject.GetComponent<Bowman>();
+                Troop troop = hit.transform.gameObject.GetComponent<Troop>();
 
                 DeselectBuildings();
 
                 // Did we hit a friendly unit?
-                if (peasant != null)
+                if (troop != null)
                 {
                     DeselectBuildings();
 
                     GameObject activeUnit = hit.transform.gameObject;
 
                     // Set this unit to selected
-                    peasant.controlState = Peasant.ControlState.SELECTED;
-                    peasant.ShowSelected();
-
-                    // Add it to the list of selected units, which is now just 1 unit
-                    selectedUnits.Add(activeUnit);
-                }
-                if (footman != null)
-                {
-                    DeselectBuildings();
-
-                    GameObject activeUnit = hit.transform.gameObject;
-
-                    // Set this unit to selected
-                    footman.controlState = Footman.ControlState.SELECTED;
-                    footman.ShowSelected();
-
-                    // Add it to the list of selected units, which is now just 1 unit
-                    selectedUnits.Add(activeUnit);
-                }
-                if (bowman != null)
-                {
-                    DeselectBuildings();
-
-                    GameObject activeUnit = hit.transform.gameObject;
-
-                    // Set this unit to selected
-                    bowman.controlState = Bowman.ControlState.SELECTED;
-                    bowman.ShowSelected();
+                    troop.controlState = Troop.ControlState.SELECTED;
+                    troop.ShowSelected();
 
                     // Add it to the list of selected units, which is now just 1 unit
                     selectedUnits.Add(activeUnit);
@@ -298,39 +211,8 @@ public class SelectionManager : MonoBehaviour
 
                     GameObject activeBuilding = hit.transform.gameObject;
 
-                    switch (hit.transform.gameObject.name)
-                    {
-                        case "Barracks":
-                            buildingPanels[0].SetActive(true);
-                            hit.transform.gameObject.GetComponent<Barracks>().FindButtons();
-                            hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
-                            break;
-                        case "Armory":
-                            buildingPanels[1].SetActive(true);
-                            hit.transform.gameObject.GetComponent<Armory>().FindButtons();
-                            hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
-                            break;
-                        case "Forge":
-                            buildingPanels[2].SetActive(true);
-                            hit.transform.gameObject.GetComponent<Forge>().FindButtons();
-                            hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
-                            break;
-                        case "Arcanaeum":
-                            buildingPanels[3].SetActive(true);
-                            hit.transform.gameObject.GetComponent<Arcanaeum>().FindButtons();
-                            hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
-                            break;
-                        case "Throne":
-                            buildingPanels[4].SetActive(true);
-                            hit.transform.gameObject.GetComponent<Throne>().FindButtons();
-                            hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
-                            break;
-                        case "Tower":
-                            buildingPanels[5].SetActive(true);
-                            hit.transform.gameObject.GetComponent<Tower>().FindButtons();
-                            hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
-                            break;
-                    }
+                    hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowMenu();
+                    hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
                 }
             }
         }
@@ -359,40 +241,22 @@ public class SelectionManager : MonoBehaviour
                 {
                     GameObject currentUnit = allUnits[i];
 
-                    Peasant peasant = currentUnit.GetComponent<Peasant>();
-                    Footman footman = currentUnit.GetComponent<Footman>();
-                    Bowman bowman = currentUnit.GetComponent<Bowman>();
+                    Troop troop = currentUnit.GetComponent<Troop>();
 
                     // Is this unit within the square
                     if (IsWithinPolygon(currentUnit.transform.position))
                     {
-                        if (peasant != null)
+                        if (troop != null)
                         {
-                            peasant.ShowSelected();
-                        }
-                        if (footman != null)
-                        {
-                            footman.ShowSelected();
-                        }
-                        if (bowman != null)
-                        {
-                            bowman.ShowSelected();
+                            troop.ShowSelected();
                         }
                     }
                     // Otherwise deactivate
                     else
                     {
-                        if (peasant != null)
+                        if (troop != null)
                         {
-                            peasant.HideSelected();
-                        }
-                        if (footman != null)
-                        {
-                            footman.HideSelected();
-                        }
-                        if (bowman != null)
-                        {
-                            bowman.HideSelected();
+                            troop.HideSelected();
                         }
                     }
                 }
@@ -421,21 +285,11 @@ public class SelectionManager : MonoBehaviour
             {
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
-                    Peasant peasant = selectedUnits[i].GetComponent<Peasant>();
-                    Footman footman = selectedUnits[i].GetComponent<Footman>();
-                    Bowman bowman = selectedUnits[i].GetComponent<Bowman>();
+                    Troop troop = selectedUnits[i].GetComponent<Troop>();
 
-                    if (peasant != null)
+                    if (troop != null)
                     {
-                        peasant.HideSelected();
-                    }
-                    if (footman != null)
-                    {
-                        footman.HideSelected();
-                    }
-                    if (bowman != null)
-                    {
-                        bowman.HideSelected();
+                        troop.HideSelected();
                     }
                 }
             }
@@ -451,7 +305,6 @@ public class SelectionManager : MonoBehaviour
             // Did we hit a friendly unit?
             if (hit.transform.gameObject.layer == troopLayer)
             {
-                Debug.Log("Working");
                 // Get the object we hit
                 GameObject currentObj = hit.transform.gameObject;
 
@@ -472,21 +325,11 @@ public class SelectionManager : MonoBehaviour
 
                     for (int i = 0; i < selectedUnits.Count; i++)
                     {
-                        Peasant peasant = selectedUnits[i].GetComponent<Peasant>();
-                        Footman footman = selectedUnits[i].GetComponent<Footman>();
-                        Bowman bowman = selectedUnits[i].GetComponent<Bowman>();
+                        Troop troop = selectedUnits[i].GetComponent<Troop>();
 
-                        if (peasant != null)
+                        if (troop != null)
                         {
-                            peasant.ShowSelected();
-                        }
-                        if (footman != null)
-                        {
-                            footman.ShowSelected();
-                        }
-                        if (bowman != null)
-                        {
-                            bowman.ShowSelected();
+                            troop.ShowSelected();
                         }
                     }
                 }
@@ -539,7 +382,7 @@ public class SelectionManager : MonoBehaviour
     // Display the selection with a GUI square
     void DisplaySquare()
     {
-        // The start position of the square is in 3d space, or the first coordinate will move
+        // The start position of the square is in 3D space, or the first coordinate will move
         // as we move the camera which is not what we want
         Vector3 squareStartScreen = Camera.main.WorldToScreenPoint(squareStartPos);
 
@@ -608,11 +451,7 @@ public class SelectionManager : MonoBehaviour
         for (int i = 0; i < buildings.Length; i++)
         {
             buildings[i].HideSelection();
-        }
-
-        for (int j = 0; j < buildingPanels.Count; j++)
-        {
-            buildingPanels[j].SetActive(false);
+            buildings[i].HideMenu();
         }
     }
 }

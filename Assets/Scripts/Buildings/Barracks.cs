@@ -21,13 +21,6 @@ public class Barracks : MonoBehaviour
     [Header("Spawn Points")]
     public SpawnPoint[] spawnPoints;
 
-    Button peasantButton;
-    Button footmanButton;
-    Button bowmanButton;
-    Button peasantUpgradeButton;
-    Button footmanUpgradeButton;
-    Button bowmanUpgradeButton;
-
     bool trainingTroop, upgradingTroop;
 
 
@@ -132,22 +125,5 @@ public class Barracks : MonoBehaviour
 
         upgradingTroop = false;
         StopAllCoroutines();
-    }
-
-    public void FindButtons()
-    {
-        peasantButton = GameObject.FindGameObjectWithTag("PeasantButton").GetComponent<Button>();
-        footmanButton = GameObject.FindGameObjectWithTag("FootmanButton").GetComponent<Button>();
-        bowmanButton = GameObject.FindGameObjectWithTag("BowmanButton").GetComponent<Button>();
-        peasantUpgradeButton = GameObject.FindGameObjectWithTag("PeasantUpgradeButton").GetComponent<Button>();
-        footmanUpgradeButton = GameObject.FindGameObjectWithTag("FootmanUpgradeButton").GetComponent<Button>();
-        bowmanUpgradeButton = GameObject.FindGameObjectWithTag("BowmanUpgradeButton").GetComponent<Button>();
-
-        peasantButton.onClick.AddListener(() => { TrainPeasant(); });
-        footmanButton.onClick.AddListener(() => { TrainFootman(); });
-        bowmanButton.onClick.AddListener(() => { TrainBowman(); });
-        peasantUpgradeButton.onClick.AddListener(() => { UpgradePeasants(); });
-        footmanUpgradeButton.onClick.AddListener(() => { UpgradeFootmen(); });
-        bowmanUpgradeButton.onClick.AddListener(() => { UpgradeBowmen(); });
     }
 }

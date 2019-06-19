@@ -34,6 +34,9 @@ public class PlaceBuilding : MonoBehaviour
     [Header("Selection UI")]
     public Image selectionMarker;
 
+    [Header("Build Menu UI")]
+    public GameObject buildingPanel;
+
     // Components
     Camera mainCam;
     BaseCameraController camController;
@@ -167,5 +170,15 @@ public class PlaceBuilding : MonoBehaviour
     public void HideSelection()
     {
         selectionMarker.enabled = false;
+    }
+
+    public void ShowMenu()
+    {
+        buildingPanel.SetActive(true);
+    }
+
+    public void HideMenu()
+    {
+        buildingPanel.SetActive(false);
     }
 }
