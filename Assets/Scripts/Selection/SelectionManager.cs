@@ -186,7 +186,7 @@ public class SelectionManager : MonoBehaviour
                 PlaceBuilding building = hit.transform.gameObject.GetComponent<PlaceBuilding>();
                 Troop troop = hit.transform.gameObject.GetComponent<Troop>();
 
-                DeselectBuildings();
+                //DeselectBuildings();
 
                 // Did we hit a friendly unit?
                 if (troop != null)

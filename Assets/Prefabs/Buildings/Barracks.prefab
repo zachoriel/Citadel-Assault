@@ -3125,7 +3125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingStatus: 0
-  buildTime: 5
+  buildTime: 1.5
   collisionMask:
     serializedVersion: 2
     m_Bits: 512
@@ -3546,8 +3546,8 @@ MonoBehaviour:
   - {fileID: 1113438018798056, guid: 27c7614277f42904daa64f1e27796374, type: 2}
   - {fileID: 1393210626460270, guid: b17a345fe8383024fb159df8b5d3b8ae, type: 2}
   trainingTimes:
-  - 0.1
-  - 0.1
+  - 1
+  - 1
   - 1
   upgradeTimes:
   - 1
