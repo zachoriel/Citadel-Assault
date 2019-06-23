@@ -60,7 +60,7 @@ public class TroopMovement : MonoBehaviour
     void MoveToDestination(Vector3 leadPosition)
     {
         posOffset = new Vector3(2f, 0f, 0f);
-        
+
         for (int i = 0; i < selectionInstance.selectedUnits.Count; i++)
         {
             Troop troop = selectionInstance.selectedUnits[i].GetComponent<Troop>();

@@ -2477,8 +2477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlState: 0
   selectionMarker: {fileID: 114427985742742914}
-  navAgent: {fileID: 195121443436344564, guid: 27c7614277f42904daa64f1e27796374, type: 2}
-  animator: {fileID: 95357299239941922, guid: 27c7614277f42904daa64f1e27796374, type: 2}
+  navAgent: {fileID: 195398587355360426}
+  animator: {fileID: 95189749654184016}
 --- !u!136 &136259366753040924
 CapsuleCollider:
   m_ObjectHideFlags: 1
