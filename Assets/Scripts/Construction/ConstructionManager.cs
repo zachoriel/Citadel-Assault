@@ -6,6 +6,13 @@ public class ConstructionManager : MonoBehaviour
 {
     public static ConstructionManager instance;
 
+    public enum CurrentMode
+    {
+        SelectionMode,
+        BuildMode
+    };
+    public CurrentMode currentMode;
+
     [Header("Construction UI")]
     public GameObject constructionPanel;
 
@@ -36,13 +43,15 @@ public class ConstructionManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            switch (constructionPanel.activeInHierarchy)
+            switch (currentMode)
             {
-                case false:
-                    constructionPanel.SetActive(true);
+                case CurrentMode.SelectionMode:
+                    OpenConstructionPanel();
+                    currentMode = CurrentMode.BuildMode;
                     break;
-                case true:
-                    constructionPanel.SetActive(false);
+                case CurrentMode.BuildMode:
+                    CloseConstructionPanel();
+                    currentMode = CurrentMode.SelectionMode;
                     break;
             }
             SelectionManager.instance.DeselectBuildings();
@@ -51,7 +60,8 @@ public class ConstructionManager : MonoBehaviour
 
     public void ConstructBuilding(int prefabIndex)
     {
-        constructionPanel.SetActive(false);
+        CloseConstructionPanel();
+        currentMode = CurrentMode.SelectionMode;
 
         Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector3 worldPos;
@@ -70,6 +80,11 @@ public class ConstructionManager : MonoBehaviour
 
         GameObject newBuilding = Instantiate(buildings[prefabIndex], worldPos, Quaternion.identity);
         newBuilding.transform.position = new Vector3(newBuilding.transform.position.x, 2.6f, newBuilding.transform.position.z);
+    }
+
+    void OpenConstructionPanel()
+    {
+        constructionPanel.SetActive(true);
     }
 
     public void CloseConstructionPanel()

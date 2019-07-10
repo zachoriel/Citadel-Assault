@@ -34,17 +34,12 @@ public class Troop : MonoBehaviour
     void Start()
     {
         controlState = ControlState.NONE;
-        HideSelected();
+        ToggleSelected(false);
     }
 
-    public void ShowSelected()
+    public void ToggleSelected(bool isEnabled)
     {
-        selectionMarker.enabled = true;
-    }
-
-    public void HideSelected()
-    {
-        selectionMarker.enabled = false;
+        selectionMarker.enabled = isEnabled;
     }
 
     public IEnumerator CheckIfRouteCompleted()

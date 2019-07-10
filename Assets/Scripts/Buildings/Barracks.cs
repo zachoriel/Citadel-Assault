@@ -29,51 +29,19 @@ public class Barracks : MonoBehaviour
         progressBarBG.SetActive(false);
     }
 
-    public void TrainPeasant()
+    public void TrainTroop(int troopNum)
     {
         if (!trainingTroop && !upgradingTroop)
         {
-            StartCoroutine(TrainTroop(troops[0], 0));
+            StartCoroutine(TrainTroop(troops[troopNum], troopNum));
         }
     }
 
-    public void TrainFootman()
-    {
-        if (!trainingTroop && !upgradingTroop)
-        {
-            StartCoroutine(TrainTroop(troops[1], 1));
-        }
-    }
-
-    public void TrainBowman()
-    {
-        if (!trainingTroop && !upgradingTroop)
-        {
-            StartCoroutine(TrainTroop(troops[2], 2));
-        }
-    }
-
-    public void UpgradePeasants()
+    public void UpgradeTroop(int troopNum)
     {
         if (!upgradingTroop && !trainingTroop)
         {
-            StartCoroutine(TrainTroop(troops[0], 0));
-        }
-    }
-
-    public void UpgradeFootmen()
-    {
-        if (!upgradingTroop && !trainingTroop)
-        {
-            StartCoroutine(TrainTroop(troops[1], 1));
-        }
-    }
-
-    public void UpgradeBowmen()
-    {
-        if (!upgradingTroop && !trainingTroop)
-        {
-            StartCoroutine(TrainTroop(troops[2], 2));
+            StartCoroutine(UpgradeTroop(troops[troopNum], troopNum));
         }
     }
 

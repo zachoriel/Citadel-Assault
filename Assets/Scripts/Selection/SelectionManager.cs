@@ -115,7 +115,7 @@ public class SelectionManager : MonoBehaviour
                     if (troop != null)
                     {
                         troop.controlState = Troop.ControlState.NONE;
-                        troop.HideSelected();
+                        troop.ToggleSelected(false);
                     }
                 }
                 selectedUnits.Clear();
@@ -135,7 +135,7 @@ public class SelectionManager : MonoBehaviour
                         if (troop != null)
                         {
                             troop.controlState = Troop.ControlState.SELECTED;
-                            troop.ShowSelected();
+                            troop.ToggleSelected(true);
                         }
                     }
                     // Otherwise deselect the unit if it's not in the square
@@ -145,7 +145,7 @@ public class SelectionManager : MonoBehaviour
                         if (troop != null)
                         {
                             troop.controlState = Troop.ControlState.NONE;
-                            troop.HideSelected();
+                            troop.ToggleSelected(false);
                         }
                     }
                 }
@@ -171,7 +171,7 @@ public class SelectionManager : MonoBehaviour
                 if (troop != null)
                 {
                     troop.controlState = Troop.ControlState.NONE;
-                    troop.HideSelected();
+                    troop.ToggleSelected(false);
                 }
             }
 
@@ -197,7 +197,7 @@ public class SelectionManager : MonoBehaviour
 
                     // Set this unit to selected
                     troop.controlState = Troop.ControlState.SELECTED;
-                    troop.ShowSelected();
+                    troop.ToggleSelected(true);
 
                     // Add it to the list of selected units, which is now just 1 unit
                     selectedUnits.Add(activeUnit);
@@ -211,8 +211,8 @@ public class SelectionManager : MonoBehaviour
 
                     GameObject activeBuilding = hit.transform.gameObject;
 
-                    hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowMenu();
-                    hit.transform.gameObject.GetComponent<PlaceBuilding>().ShowSelection();
+                    hit.transform.gameObject.GetComponent<PlaceBuilding>().ToggleMenu(true);
+                    hit.transform.gameObject.GetComponent<PlaceBuilding>().ToggleSelection(true);
                 }
             }
         }
@@ -248,7 +248,7 @@ public class SelectionManager : MonoBehaviour
                     {
                         if (troop != null)
                         {
-                            troop.ShowSelected();
+                            troop.ToggleSelected(true);
                         }
                     }
                     // Otherwise deactivate
@@ -256,7 +256,7 @@ public class SelectionManager : MonoBehaviour
                     {
                         if (troop != null)
                         {
-                            troop.HideSelected();
+                            troop.ToggleSelected(false);
                         }
                     }
                 }
@@ -289,7 +289,7 @@ public class SelectionManager : MonoBehaviour
 
                     if (troop != null)
                     {
-                        troop.HideSelected();
+                        troop.ToggleSelected(false);
                     }
                 }
             }
@@ -329,7 +329,7 @@ public class SelectionManager : MonoBehaviour
 
                         if (troop != null)
                         {
-                            troop.ShowSelected();
+                            troop.ToggleSelected(true);
                         }
                     }
                 }
@@ -450,8 +450,8 @@ public class SelectionManager : MonoBehaviour
         PlaceBuilding[] buildings = FindObjectsOfType<PlaceBuilding>();
         for (int i = 0; i < buildings.Length; i++)
         {
-            buildings[i].HideSelection();
-            buildings[i].HideMenu();
+            buildings[i].ToggleSelection(false);
+            buildings[i].ToggleMenu(false);
         }
     }
 }

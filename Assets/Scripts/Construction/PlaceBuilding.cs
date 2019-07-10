@@ -72,24 +72,27 @@ public class PlaceBuilding : MonoBehaviour
 
     void Update ()
     {
+        // If a building has been selected but not placed
 		if (buildingStatus == BuildingStatus.Planning)
         {
             camController.usingKeyRotation = false;
             MoveObject();
             canPlaceBuilding = CanPlaceHere();
 
+            // If a building is placed
             if (canPlaceBuilding && Input.GetKeyDown(KeyCode.Mouse0))
             {               
                 buildingStatus = BuildingStatus.Constructing;
                 StartCoroutine(ConstructBuilding());
                 return;
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && buildingStatus != BuildingStatus.Finished)
-        {
-            camController.usingKeyRotation = true;
-            Destroy(this.gameObject);
+            // If escape is pressed and a building has been selected but not placed
+            if (Input.GetKeyDown(KeyCode.Escape) && buildingStatus != BuildingStatus.Finished)
+            {
+                camController.usingKeyRotation = true;
+                Destroy(this.gameObject);
+            }
         }
 	}
 
@@ -162,23 +165,13 @@ public class PlaceBuilding : MonoBehaviour
         StopCoroutine(LerpBuilding());
     }
 
-    public void ShowSelection()
+    public void ToggleSelection(bool isEnabled)
     {
-        selectionMarker.enabled = true;
+        selectionMarker.enabled = isEnabled;
     }
 
-    public void HideSelection()
+    public void ToggleMenu(bool isActive)
     {
-        selectionMarker.enabled = false;
-    }
-
-    public void ShowMenu()
-    {
-        buildingPanel.SetActive(true);
-    }
-
-    public void HideMenu()
-    {
-        buildingPanel.SetActive(false);
+        buildingPanel.SetActive(isActive);
     }
 }
