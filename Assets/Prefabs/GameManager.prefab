@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 114994938226717822}
   - component: {fileID: 114086949452580672}
   - component: {fileID: 114756949285560234}
-  - component: {fileID: 114653202289330490}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -163,31 +162,10 @@ MonoBehaviour:
   structureLayer:
     serializedVersion: 2
     m_Bits: 512
-  barracksPanel: {fileID: 0}
-  armoryPanel: {fileID: 0}
-  forgePanel: {fileID: 0}
-  arcanaeumPanel: {fileID: 0}
-  thronePanel: {fileID: 0}
-  towerPanel: {fileID: 0}
   selectionSquareTrans: {fileID: 0}
   selectedUnits: []
+  formationLeader: 0
   allUnits: []
---- !u!114 &114653202289330490
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1052827561296524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec74bded4ec1d641aa223436a22d52f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unwalkableMask:
-    serializedVersion: 2
-    m_Bits: 512
-  gridWorldSize: {x: 250, y: 250}
-  nodeRadius: 0.7
 --- !u!114 &114756949285560234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,12 +189,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructionPanel: {fileID: 0}
-  barracks: {fileID: 1692709685349372, guid: bb183e307cf7c8e4db77316dbc23e8ad, type: 2}
-  armory: {fileID: 1106089096107050, guid: 9fd0abe6fa3da834fa941f5aaf3686bb, type: 2}
-  forge: {fileID: 1106089096107050, guid: 54280ef6c2e75974ebcb0e2f1f74546c, type: 2}
-  arcanaeum: {fileID: 1106089096107050, guid: a4e97ca52e984c74fba5da9221c0c1aa, type: 2}
-  throne: {fileID: 1106089096107050, guid: e3d7ad7c7d1e980418638de7ff4b6dcb, type: 2}
-  tower: {fileID: 1106089096107050, guid: 2b74f63e8168d2e45b88aeaf0746225e, type: 2}
+  buildings:
+  - {fileID: 1692709685349372, guid: bb183e307cf7c8e4db77316dbc23e8ad, type: 2}
+  - {fileID: 1530671614568548, guid: 9fd0abe6fa3da834fa941f5aaf3686bb, type: 2}
+  - {fileID: 1393792380580762, guid: 54280ef6c2e75974ebcb0e2f1f74546c, type: 2}
+  - {fileID: 1779885081353838, guid: a4e97ca52e984c74fba5da9221c0c1aa, type: 2}
+  - {fileID: 1371165367724250, guid: e3d7ad7c7d1e980418638de7ff4b6dcb, type: 2}
+  - {fileID: 1206260734733066, guid: 2b74f63e8168d2e45b88aeaf0746225e, type: 2}
 --- !u!135 &135069864396099622
 SphereCollider:
   m_ObjectHideFlags: 1

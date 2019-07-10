@@ -5,15 +5,13 @@ using UnityEngine.UI;
 
 public class Throne : MonoBehaviour
 {
-    //[Header("Troop Buttons")]
-    //public Button peasantButton;
-    //public Button footmanButton;
-    //public Button bowmanButton;
+    [Header("Building UI")]
+    public GameObject progressBarBG;
+    public Image progressBar;
 
-    public void FindButtons()
+
+    void Start()
     {
-        //peasantButton = GameObject.FindGameObjectWithTag("PeasantButton").GetComponent<Button>();
-        //footmanButton = GameObject.FindGameObjectWithTag("FootmanButton").GetComponent<Button>();
-        //bowmanButton = GameObject.FindGameObjectWithTag("BowmanButton").GetComponent<Button>();
+        progressBarBG.SetActive(false);
     }
 }
